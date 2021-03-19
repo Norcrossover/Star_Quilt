@@ -62,6 +62,7 @@ def triangle(length, color):
     print(point)
     print(heading)
     t.rt(30)
+    siepernski(length/4, 3, color)
     t.pu()
     t.fd(length/2)
     t.rt(90)
@@ -75,7 +76,7 @@ def triangle(length, color):
     t.seth(heading)
     #t.lt(45)
     t.pd()
-    siepernski(length/4, 3, color)
+    
 ''' #for testing
     t.begin_fill()
     t.circle(length/8)
