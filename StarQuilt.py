@@ -6,8 +6,10 @@ depth = 5
 sides = 6
 t.setup(res, res)                         
 t.setworldcoordinates(0, 9, res, res)
+'''
 t.tracer(0, 100)
 t.speed(0)
+'''
 t.pu()
 t.goto(res/2, res/2)
 
@@ -15,32 +17,20 @@ t.goto(res/2, res/2)
 
 def octagon(sides, length, colorOne, colorTwo):
     t.pu() 
-    #t.goto(res/2, res/2)
     #moves cursor to the bottom left of the screen to start drawing the shape
     point = (res/2-length+10),(res/2-50)
     t.goto(point)
     t.lt(90)
     t.fd(res/4)
     t.pd()
-    #t.rt(90)
-    #t.fd(length/2)
-    count = 1
     for i in range(0, sides):
-        #print(count)
         t.color(colorOne)
-        
-        #if (count != 4 or count != 8):
-            #siepernski(length/4, 3, colorOne)
         triangle(length, colorOne)
-        
         t.rt(360/6)
         t.fd(length)
-        #count += 1
-
-    #t.fd(length/2)
+    t.fd(length/2)
     t.pu()
-    #t.rt(20)
-    #t.pd()
+    
 
 
 
@@ -49,39 +39,64 @@ def triangle(length, color):
     t.pd()
     theta = 0
     t.lt(theta)
-    #t.color("blue")
-    #t.begin_fill()
-    point = (0, 0)
-    heading = 0
+    a = (0, 0)
+    b = (0, 0)
+    c = (0, 0)
+    o = (0, 0)
+    ox = 0
+    oy = 0
+    heading1 = 0
+    heading2 = 0
+    heading3 = 0
     for i in range(0,3):
+        #need to get the point and heading when the triangle function is called
         if (i == 0):
-            point = t.pos()
-            heading = t.heading()
+            a = t.pos()
+            heading1 = t.heading()
+        elif (i == 1):
+            b = t.pos()
+            heading2 = t.heading()
+        elif (i == 2):
+            c = t.pos()
+            heading3 = t.heading()
         t.fd(length)
         t.rt(360/3)
-    print(point)
-    print(heading)
-    t.rt(30)
+
+    # find the center of the triangle each time
+    ox = (a[0]+b[0]+c[0])/3
+    oy = (a[1]+b[1]+c[1])/3
+    o = (ox, oy)
+    '''
+    print("Point 1:")
+    print(a)
+    print(heading1)
+    print("Point 2:")
+    print(b)
+    print(heading2)
+    print("Point 3:")
+    print(c)
+    print(heading3)
+    '''
+    #t.goto(point)
+    #t.seth(heading) 
+    t.rt(90)
+    #need to go to the center of the triangle b having the point x and y = 0
+    t.pu()
+    #add 5 to point 1 if the outcome is not as desired
+    t.goto(o)
+    t.pd()
     siepernski(length/4, 3, color)
     t.pu()
     t.fd(length/2)
     t.rt(90)
     # one corner of the serpinski triangle is aequal to the actual triangle i want
     # go to the first points positiion ((x + length), 0)
-    
-    t.lt(30)
-    #t.fd(length/2)
     t.rt(theta)
-    t.goto(point)
-    t.seth(heading)
-    #t.lt(45)
-    t.pd()
     
-''' #for testing
-    t.begin_fill()
-    t.circle(length/8)
-    t.end_fill()
-    '''
+    t.goto(a)
+    t.seth(heading1)    
+    
+
 
 
  
@@ -124,11 +139,9 @@ def innerDesign(sides, length, color):
 
 
 #build our star quilt:
-#octagon(sides, sideLength, "black", "white")
+octagon(sides, sideLength, "black", "white")
 #innerDesign(8, sideLength, "black")
-
 t.goto(res/2, res/2)
 t.rt(60)
-#siepernski(sideLength/4, 3, "blue")
-triangle(sideLength, "black")
+#triangle(sideLength, "black")
 t.done()
