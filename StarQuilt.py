@@ -4,8 +4,8 @@ res = 500                                       # resolution (x,y of the window)
 sideLength = res/5                                # length of sides 
 depth = 5
 sides = 6
-colorOne = "black"
-colorTwo = "white"
+colorOne = "blue"
+colorTwo = "red"
 t.setup(res, res)                         
 t.setworldcoordinates(0, 9, res, res)
 t.tracer(0, 100)
@@ -15,28 +15,21 @@ t.goto(res/2, res/2)
 
 
 
-def octagon(sides, length, colorOne, colorTwo):
+def starQuilt(sides, length, colorOne, colorTwo):
     t.pu() 
     #moves cursor to the bottom left of the screen to start drawing the shape
     point = (res/2-length+10),(res/2-50)
     t.goto(point)
     t.lt(90)
     t.fd(res/4)
-    t.pd()
-    t.color(colorTwo)
-    t.begin_fill()
     for i in range(0, sides):
-        t.color(colorOne)
+        t.color(colorTwo)
         triangle(length, colorOne, colorTwo)
         t.rt(360/6)
         t.fd(length)
-    t.end_fill()
-    t.fd(length/2)
-    t.pu()
-    t.goto(res/2,res/2)
-    #innerDesign(8, length/2+14, colorOne, point)
+    hexagon(colorTwo, point, sideLength, sides)
+    innerDesign(8, length/2+14, colorOne, colorTwo)
     
-
 
 
 def triangle(length, colorOne, colorTwo):
@@ -88,8 +81,6 @@ def triangle(length, colorOne, colorTwo):
     t.seth(heading1)    
     
 
-
-
  
 def siepernski(length, depth, color):
     # draw the triangle with the given color
@@ -109,8 +100,19 @@ def siepernski(length, depth, color):
 
 
 
-def innerDesign(sides, length, colorOne, colorTwo, startingPoint):
-    t.color(color)
+def background():
+    t.goto(0, 0)
+    t.color(colorTwo)
+    t.begin_fill()
+    for i in range(0,4):
+        t.fd(res)
+        t.rt(90)
+    t.end_fill()
+
+
+
+def innerDesign(sides, length, colorOne, colorTwo):
+    t.color(colorTwo)
     t.pu()
     t.goto(res/2-4,res/2+50)
     t.fd(length)
@@ -119,17 +121,32 @@ def innerDesign(sides, length, colorOne, colorTwo, startingPoint):
     t.begin_fill()
     for i in range(0, sides):
         t.rt(360/sides)
+        #t.begin_fill()
+        t.color(colorOne)
         for j in range(0,3):
             t.fd(length)
             t.rt(360/sides)
+        #t.end_fill()
         t.fd(length)
         t.rt(360/sides)
     t.end_fill()
 
 
 
+def hexagon(color, startingPoint, length, sides):
+    t.pu()
+    t.goto(startingPoint)
+    t.begin_fill()
+    t.fd(res/4)
+    for i in range(0, sides):
+        t.color(colorTwo)
+        t.rt(360/6)
+        t.fd(length)
+    t.end_fill()
+
+
+
 #build our star quilt:
-#octagon(sides, sideLength, "blue", "pink")
-#triangle(sideLength, "black", "white")
-innerDesign(8, sideLength/2, colorOne, colorTwo, (res/2,res/2))
+background()
+#starQuilt(sides, sideLength, colorOne, colorTwo)
 t.done()
