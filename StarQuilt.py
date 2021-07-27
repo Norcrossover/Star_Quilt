@@ -4,8 +4,8 @@ res = 500                                       # resolution (x,y of the window)
 sideLength = res/5                                # length of sides 
 depth = 5
 sides = 6
-colorOne = "blue"
-colorTwo = "red"
+colorOne = "light blue"
+colorTwo = "pink"
 t.setup(res, res)                         
 t.setworldcoordinates(0, 9, res, res)
 t.tracer(0, 100)
@@ -15,7 +15,7 @@ t.goto(res/2, res/2)
 
 
 
-def starQuilt(sides, length, colorOne, colorTwo):
+def starQuilt(sides: int, length: int, colorOne: str, colorTwo: str) -> None:
     t.pu() 
     #moves cursor to the bottom left of the screen to start drawing the shape
     point = (res/2-length+10),(res/2-50)
@@ -32,7 +32,7 @@ def starQuilt(sides, length, colorOne, colorTwo):
     
 
 
-def triangle(length, colorOne, colorTwo):
+def triangle(length: int, colorOne: str, colorTwo: str) -> None:
     # setup variables needed
     a = (0, 0)
     b = (0, 0)
@@ -82,7 +82,7 @@ def triangle(length, colorOne, colorTwo):
     
 
  
-def siepernski(length, depth, color):
+def siepernski(length: int, depth: int, color: str) -> None:
     # draw the triangle with the given color
     t.color(color)
     if (depth == 0):
@@ -100,7 +100,7 @@ def siepernski(length, depth, color):
 
 
 
-def background():
+def background() -> None:
     t.goto(0, 0)
     t.color(colorTwo)
     t.begin_fill()
@@ -111,7 +111,7 @@ def background():
 
 
 
-def innerDesign(sides, length, colorOne, colorTwo):
+def innerDesign(sides: int, length: int, colorOne: str, colorTwo: str) -> None:
     t.color(colorTwo)
     t.pu()
     t.goto(res/2-4,res/2+50)
@@ -133,7 +133,7 @@ def innerDesign(sides, length, colorOne, colorTwo):
 
 
 
-def hexagon(color, startingPoint, length, sides):
+def hexagon(color: str, startingPoint: str, length: int, sides: int) -> None:
     t.pu()
     t.goto(startingPoint)
     t.begin_fill()
@@ -148,5 +148,5 @@ def hexagon(color, startingPoint, length, sides):
 
 #build our star quilt:
 background()
-#starQuilt(sides, sideLength, colorOne, colorTwo)
+starQuilt(sides, sideLength, colorOne, colorTwo)
 t.done()
