@@ -4,8 +4,8 @@ res = 500                                       # resolution (x,y of the window)
 sideLength = res/5                                # length of sides 
 depth = 5
 sides = 6
-colorOne = "light blue"
-colorTwo = "pink"
+primaryColor = "light blue"
+secondaryColor = "pink"
 t.setup(res, res)                         
 t.setworldcoordinates(0, 9, res, res)
 t.tracer(0, 100)
@@ -15,11 +15,11 @@ t.goto(res/2, res/2)
 
 
 
-def getColors(colorOne: str, colorTwo: str) -> None:
-    colorOne = input("Please enter the value you want as the primary color: ")
-    colorTwo = input("Please enter the value of the secondary color: ")
+def getColors(primaryColor: str, secondaryColor: str) -> None:
+    primaryColor = input("Please enter the value you want as the primary color: ")
+    secondaryColor = input("Please enter the value of the secondary color: ")
 
-def starQuilt(sides: int, length: int, colorOne: str, colorTwo: str) -> None:
+def starQuilt(sides: int, length: int, primaryColor: str, secondaryColor: str) -> None:
     t.pu() 
     #moves cursor to the bottom left of the screen to start drawing the shape
     point = (res/2-length+10),(res/2-50)
@@ -27,16 +27,16 @@ def starQuilt(sides: int, length: int, colorOne: str, colorTwo: str) -> None:
     t.lt(90)
     t.fd(res/4)
     for i in range(0, sides):
-        t.color(colorTwo)
-        triangle(length, colorOne, colorTwo)
+        t.color(secondaryColor)
+        triangle(length, primaryColor, secondaryColor)
         t.rt(360/6)
         t.fd(length)
-    hexagon(colorTwo, point, sideLength, sides)
-    innerDesign(8, length/2+14, colorOne, colorTwo)
+    hexagon(secondaryColor, point, sideLength, sides)
+    innerDesign(8, length/2+14, primaryColor, secondaryColor)
     
 
 
-def triangle(length: int, colorOne: str, colorTwo: str) -> None:
+def triangle(length: int, primaryColor: str, secondaryColor: str) -> None:
     # setup variables needed
     a = (0, 0)
     b = (0, 0)
@@ -48,7 +48,7 @@ def triangle(length: int, colorOne: str, colorTwo: str) -> None:
     ox = 0
     oy = 0
     t.pd()
-    t.color(colorOne)
+    t.color(primaryColor)
     t.begin_fill()
     for i in range(0,3):
         t.pd()
@@ -77,7 +77,7 @@ def triangle(length: int, colorOne: str, colorTwo: str) -> None:
     t.goto(o)
     t.pd()
     #draw the siepernski triangle
-    siepernski(length/4+7, 3, colorTwo)
+    siepernski(length/4+7, 3, secondaryColor)
     t.pu()
     t.fd(length/2)
     t.rt(90)    
@@ -105,13 +105,17 @@ def siepernski(length: int, depth: int, color: str) -> None:
 
 def stitchPathing(res: int) -> None:
     traversed = 0
+    t.pd()
     while (traversed < res):
         t.seth(0)
+        #pos_one = t.xcor()
         t.lt(30)
         t.fd(10)
         t.rt(60)
         t.fd(10)
-        traversed += 20
+        #pos_two = t.xcor()
+        # the last stitch was not going all the way, so I found a value that allowed for it to work
+        traversed += (12)
 
 def background(res: int) -> None:
     # need space in between each "stitch
@@ -119,20 +123,21 @@ def background(res: int) -> None:
     stitches = 8
     space = res/stitches
 
-    '''
-    t.goto(0, 0)
-    t.color(colorTwo)
-    t.begin_fill()
-    for i in range(0,4):
-        t.fd(res)
-        t.rt(90)
-    t.end_fill()
-    '''
+    t.goto(0,0)
+    t.color(secondaryColor)
+    #t.begin_fill()
+    for i in range(0,stitches):
+        t.pu()
+        t.goto(0, i*space)
+        if (i!=0 and i!=stitches):
+            stitchPathing(res)
+    #t.end_fill()
 
 
 
-def innerDesign(sides: int, length: int, colorOne: str, colorTwo: str) -> None:
-    t.color(colorTwo)
+
+def innerDesign(sides: int, length: int, primaryColor: str, secondaryColor: str) -> None:
+    t.color(secondaryColor)
     t.pu()
     t.goto(res/2-4,res/2+50)
     t.fd(length)
@@ -142,7 +147,7 @@ def innerDesign(sides: int, length: int, colorOne: str, colorTwo: str) -> None:
     for i in range(0, sides):
         t.rt(360/sides)
         #t.begin_fill()
-        t.color(colorOne)
+        t.color(primaryColor)
         for j in range(0,3):
             t.fd(length)
             t.rt(360/sides)
@@ -159,7 +164,7 @@ def hexagon(color: str, startingPoint: str, length: int, sides: int) -> None:
     t.begin_fill()
     t.fd(res/4)
     for i in range(0, sides):
-        t.color(colorTwo)
+        t.color(secondaryColor)
         t.rt(360/6)
         t.fd(length)
     t.end_fill()
@@ -168,10 +173,10 @@ def hexagon(color: str, startingPoint: str, length: int, sides: int) -> None:
 
 #build our star quilt:
 def main():
-    background()
+    background(res)
     '''
-    getColors(colorOne, colorTwo)
-    starQuilt(sides, sideLength, colorOne, colorTwo)
+    getColors(primaryColor, secondaryColor)
+    starQuilt(sides, sideLength, primaryColor, secondaryColor)
     '''
     t.done()
 
