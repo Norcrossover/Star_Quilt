@@ -103,8 +103,23 @@ def siepernski(length: int, depth: int, color: str) -> None:
             t.lt(120)
 
 
+def stitchPathing(res: int) -> None:
+    traversed = 0
+    while (traversed < res):
+        t.seth(0)
+        t.lt(30)
+        t.fd(10)
+        t.rt(60)
+        t.fd(10)
+        traversed += 20
 
-def background() -> None:
+def background(res: int) -> None:
+    # need space in between each "stitch
+    # there will be 8 stitches across, but may change depending on how it looks
+    stitches = 8
+    space = res/stitches
+
+    '''
     t.goto(0, 0)
     t.color(colorTwo)
     t.begin_fill()
@@ -112,6 +127,7 @@ def background() -> None:
         t.fd(res)
         t.rt(90)
     t.end_fill()
+    '''
 
 
 
@@ -153,8 +169,10 @@ def hexagon(color: str, startingPoint: str, length: int, sides: int) -> None:
 #build our star quilt:
 def main():
     background()
+    '''
     getColors(colorOne, colorTwo)
     starQuilt(sides, sideLength, colorOne, colorTwo)
+    '''
     t.done()
 
 #two underscores it seems XD
