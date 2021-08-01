@@ -4,8 +4,10 @@ res = 500                                       # resolution (x,y of the window)
 sideLength = res/5                                # length of sides 
 depth = 5
 sides = 6
-primaryColor = "light blue"
-secondaryColor = "pink"
+primaryColor = "blue"
+secondaryColor = "red"
+stitchColor = "black"
+backgroundColor = "white"
 t.setup(res, res)                         
 t.setworldcoordinates(0, 9, res, res)
 t.tracer(0, 100)
@@ -16,9 +18,11 @@ t.goto(res/2, res/2)
 
 
 def getColors(primaryColor: str, secondaryColor: str) -> None:
-    primaryColor = input("Please enter the value you want as the primary color: ")
-    secondaryColor = input("Please enter the value of the secondary color: ")
-
+    stitchColor     = input("Enter the name of the stitching color: ")
+    backgroundColor = input("Enter the name of the background color: ")
+    primaryColor    = input("Enter the name of the primary color: ")
+    secondaryColor  = input("Enter the name of the secondary color: ")
+    
 def starQuilt(sides: int, length: int, primaryColor: str, secondaryColor: str) -> None:
     t.pu() 
     #moves cursor to the bottom left of the screen to start drawing the shape
@@ -117,14 +121,14 @@ def stitchPathing(res: int) -> None:
         # the last stitch was not going all the way, so I found a value that allowed for it to work
         traversed += (12)
 
-def background(res: int) -> None:
+def background(res: int, backgroundColor: str, stitchColor: str) -> None:
     # need space in between each "stitch
     # there will be 8 stitches across, but may change depending on how it looks
     stitches = 8
     space = res/stitches
-
+    t.bgcolor(backgroundColor)
     t.goto(0,0)
-    t.color(secondaryColor)
+    t.color(stitchColor)
     #t.begin_fill()
     for i in range(0,stitches):
         t.pu()
@@ -173,7 +177,7 @@ def hexagon(color: str, startingPoint: str, length: int, sides: int) -> None:
 
 #build our star quilt:
 def main():
-    background(res)
+    background(res, backgroundColor, stitchColor)
     '''
     getColors(primaryColor, secondaryColor)
     starQuilt(sides, sideLength, primaryColor, secondaryColor)
