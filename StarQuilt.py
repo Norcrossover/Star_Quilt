@@ -157,5 +157,6 @@ def main():
     starQuilt(sides, sideLength, colorOne, colorTwo)
     t.done()
 
+#two underscores it seems XD
 if __name__ == "__main__":
     main()
