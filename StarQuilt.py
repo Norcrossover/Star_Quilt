@@ -15,6 +15,10 @@ t.goto(res/2, res/2)
 
 
 
+def getColors(colorOne: str, colorTwo: str) -> None:
+    colorOne = input("Please enter the value you want as the primary color: ")
+    colorTwo = input("Please enter the value of the secondary color: ")
+
 def starQuilt(sides: int, length: int, colorOne: str, colorTwo: str) -> None:
     t.pu() 
     #moves cursor to the bottom left of the screen to start drawing the shape
@@ -147,6 +151,11 @@ def hexagon(color: str, startingPoint: str, length: int, sides: int) -> None:
 
 
 #build our star quilt:
-background()
-starQuilt(sides, sideLength, colorOne, colorTwo)
-t.done()
+def main():
+    background()
+    getColors(colorOne, colorTwo)
+    starQuilt(sides, sideLength, colorOne, colorTwo)
+    t.done()
+
+if __name__ == "__main__":
+    main()
