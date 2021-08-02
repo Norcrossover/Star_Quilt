@@ -19,10 +19,14 @@ t.goto(res/2, res/2)
 
 def getColors(primaryColor: str, secondaryColor: str) -> None:
     stitchColor     = input("Enter the name of the stitching color: ")
+    print(stitchColor)
     backgroundColor = input("Enter the name of the background color: ")
+    print(backgroundColor)
     primaryColor    = input("Enter the name of the primary color: ")
+    print(primaryColor)
     secondaryColor  = input("Enter the name of the secondary color: ")
-    
+    print(secondaryColor)
+
 def starQuilt(sides: int, length: int, primaryColor: str, secondaryColor: str) -> None:
     t.pu() 
     #moves cursor to the bottom left of the screen to start drawing the shape
@@ -136,6 +140,7 @@ def background(res: int, backgroundColor: str, stitchColor: str) -> None:
         if (i!=0 and i!=stitches):
             stitchPathing(res)
     #t.end_fill()
+    #t.goto(0,0)
 
 
 
@@ -177,11 +182,9 @@ def hexagon(color: str, startingPoint: str, length: int, sides: int) -> None:
 
 #build our star quilt:
 def main():
-    background(res, backgroundColor, stitchColor)
-    '''
     getColors(primaryColor, secondaryColor)
+    #background(res, backgroundColor, stitchColor)
     starQuilt(sides, sideLength, primaryColor, secondaryColor)
-    '''
     t.done()
 
 #two underscores it seems XD
